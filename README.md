@@ -9,11 +9,13 @@
 - このアプリ版と Markdown 版は、HTML 版が完成した時点で追随させる**下流の成果物**。
 - 生成は `build_pwa.py` が HTML 版を読み込んで行う。手でこの中を編集しない。
 
-## 公開手順(GitHub Pages)
+## 公開先
 
-1. このフォルダの中身をリポジトリのルートに置く
-2. Settings → Pages → Source を `main` ブランチのルートに設定
-3. 数分後 `https://<ユーザー名>.github.io/<リポジトリ名>/` で公開される
+https://kazukitakeru-dotcom.github.io/dog-reference-app/
+
+リポジトリ: `kazukitakeru-dotcom/dog-reference-app`(public)
+GitHub Pages は Settings → Pages で `main` ブランチのルートを公開する設定。
+`main` に push すれば自動で再デプロイされる(反映まで1〜2分)。
 
 Service Worker は https でないと動かない。GitHub Pages は https なので問題ない
 (ローカル確認時は `localhost` なら動く)。
