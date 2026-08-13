@@ -1,7 +1,6 @@
 // 犬 ファクトチェック資料 — Service Worker
-// 内容を更新したら CACHE 名の版数を必ず上げること。
-// 上げないと、一度アクセスした端末に古い版が残り続ける。
-const CACHE = 'dog-ref-v2';
+// build_pwa.py が生成する。版数は CACHE_VERSION で管理しているので手で直さない。
+const CACHE = 'dog-ref-v3';
 const ASSETS = [
   './',
   './index.html',
