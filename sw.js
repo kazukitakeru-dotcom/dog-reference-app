@@ -1,6 +1,6 @@
 // 犬 ファクトチェック資料 — Service Worker
 // build_pwa.py が生成する。版数は CACHE_VERSION で管理しているので手で直さない。
-const CACHE = 'dog-ref-v4';
+const CACHE = 'dog-ref-v5';
 const ASSETS = [
   './',
   './index.html',
