@@ -32,7 +32,7 @@ OUT_DIRS = [
 ]
 
 # 内容を更新したら必ず上げること。上げないと端末に古い版が残り続ける。
-CACHE_VERSION = "dog-ref-v3"
+CACHE_VERSION = "dog-ref-v4"
 
 # アイコンの地の色(元画像の背景に合わせている)
 ICON_BG = (251, 241, 221)
