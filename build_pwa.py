@@ -142,30 +142,26 @@ def build_html():
 
 
 def build_icons():
-    """元画像から icons/ 一式を作る。周囲の余白は地の色で埋めて正方形にする。"""
+    """元画像から icons/ 一式を作る。周囲の黒い余白は地の色で埋めて正方形にする。
+
+    余白の厚みは元画像によって違うので、外周からの距離では判定しない。
+    1px の黒枠を足した上でその角から塗りつぶすことで、
+    「画像の外周とつながっている黒」だけが対象になる。絵の中の黒は残る。
+    """
     from PIL import Image, ImageDraw
 
     im = Image.open(ICON_SRC).convert("RGB")
     w, h = im.size
 
-    # 角の黒い余白を地の色で塗り、絵を正方形いっぱいにする
-    for corner in [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1)]:
-        ImageDraw.floodfill(im, corner, ICON_BG, thresh=70)
-
-    # 丸角の外側に残った黒を掃除する(外周80px内だけ。絵の中の黒は触らない)
-    px = im.load()
-    for y in range(h):
-        for x in range(w):
-            r, g, b = px[x, y]
-            if r < 45 and g < 45 and b < 45:
-                if x < 90 or y < 90 or x > w - 90 or y > h - 90:
-                    px[x, y] = ICON_BG
-
-    base = im.resize((1024, 1024), Image.LANCZOS)
+    padded = Image.new("RGB", (w + 2, h + 2), (0, 0, 0))
+    padded.paste(im, (1, 1))
+    ImageDraw.floodfill(padded, (0, 0), ICON_BG, thresh=60)
+    base = padded.crop((1, 1, w + 1, h + 1)).resize((1024, 1024), Image.LANCZOS)
 
     # maskable は端が切られるので、中身を80%に縮めて安全領域をとる
     maskable = Image.new("RGB", (512, 512), ICON_BG)
     maskable.paste(base.resize((410, 410), Image.LANCZOS), (51, 51))
+
 
     return {
         "icon-512.png": base.resize((512, 512), Image.LANCZOS),
